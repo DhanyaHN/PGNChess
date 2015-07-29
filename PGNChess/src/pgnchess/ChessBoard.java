@@ -1,5 +1,8 @@
 package pgnchess;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *
  * @author Test
@@ -7,9 +10,10 @@ package pgnchess;
 public class ChessBoard {
     
     ChessPiece[][] board;
-    
+    Map<String, Position> pieces;
     public ChessBoard() {
         board = new ChessPiece[8][8];
+        pieces = new HashMap<>();
         initialize();
     }
 
@@ -18,6 +22,8 @@ public class ChessBoard {
     	for (int i = 2; i <= 7; ++i) {
     		board[2][i] = new ChessPiece('W', 'P');
     		board[7][i] = new ChessPiece('B', 'P');
+                pieces.put("PW"+ (i - 1), new Position(2, i));
+                pieces.put("PB"+ (i - 1), new Position(7, i));
     	}
     	for (int i = 3; i <= 6; ++i) {
     		for (int j = 1; j <= 8; ++j) {
@@ -29,27 +35,56 @@ public class ChessBoard {
     
     private void initializeFirstRow() {
     	board[1][1] = new ChessPiece('W', 'R');
+        pieces.put("RW1", new Position(1, 1));
+        
     	board[1][8] = new ChessPiece('W', 'R');
-    	board[1][2] = new ChessPiece('W', 'N');
-    	board[1][7] = new ChessPiece('W', 'N');
-    	board[1][3] = new ChessPiece('W', 'B');
-    	board[1][6] = new ChessPiece('W', 'B');
-    	board[1][4] = new ChessPiece('W', 'Q');
-    	board[1][5] = new ChessPiece('W', 'K');
+        pieces.put("RW2", new Position(1, 8));
     	
+        board[1][2] = new ChessPiece('W', 'N');
+    	pieces.put("NW1", new Position(1, 2));
+        
+        board[1][7] = new ChessPiece('W', 'N');
+    	pieces.put("NW2", new Position(1, 7));
+        
+        board[1][3] = new ChessPiece('W', 'B');
+    	pieces.put("BW1", new Position(1, 3));
+        
+        board[1][6] = new ChessPiece('W', 'B');
+    	pieces.put("BW2", new Position(1, 6));
+        
+        board[1][4] = new ChessPiece('W', 'Q');
+    	pieces.put("QW", new Position(1, 4));
+        
+        board[1][5] = new ChessPiece('W', 'K');
+    	pieces.put("KW", new Position(1, 5));
+        
     	board[8][1] = new ChessPiece('B', 'R');
+        pieces.put("RB1", new Position(8, 1));
+        
     	board[8][8] = new ChessPiece('B', 'R');
+        pieces.put("RB2", new Position(8, 8));
+                
     	board[8][2] = new ChessPiece('B', 'N');
+        pieces.put("NB1", new Position(8, 2));
+                
     	board[8][7] = new ChessPiece('B', 'N');
+        pieces.put("NB2", new Position(8, 7));
+        
     	board[8][3] = new ChessPiece('B', 'B');
+        pieces.put("BB1", new Position(8, 3));
+        
     	board[8][6] = new ChessPiece('B', 'B');
+        pieces.put("BB2", new Position(8, 2));
+        
     	board[8][4] = new ChessPiece('B', 'K');
+        pieces.put("KB", new Position(8, 4));
+        
     	board[8][5] = new ChessPiece('B', 'Q');
+        pieces.put("QB", new Position(8, 5));
     }
     
     private void update(String move,char color ) {
         
-        board[1][7].name = 'R';
         
         
         

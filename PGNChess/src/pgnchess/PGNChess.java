@@ -20,28 +20,24 @@ public class PGNChess {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         // TODO code application logic here
         ChessBoard board = new ChessBoard();
-        readInput("C:\\Users\\test\\Documents\\NetBeansProjects\\PGNChess\\PGNChess\\src\\pgnchess\\input");
+        File file = new File("C:\\Users\\test\\Documents\\NetBeansProjects\\PGNChess\\PGNChess\\src\\pgnchess\\input");
+        
+            Scanner in = new Scanner(file);
+            String move[];
+            while ( in.hasNextLine() ) {
+                move = getMove(in);
+                System.out.println(move[0] + "  "+ move[1]);
+            }
+            in.close();
     }
 
-    private static void readInput(String path) {
-        File file = new File(path);
-        try {
-            Scanner in = new Scanner(file);
-            while (in.hasNextLine()) {
-                    String[] rec = in.nextLine().split(" ");
-                    System.out.println(rec[0] + "   " + rec[1]);
-                    board.update(rec[0], 'W');
-                    board.update(rec[1], 'B');
-
-                }
-                in.close();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PGNChess.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    private static String[] getMove(Scanner in) {
+        String[] rec;   
+        rec = in.nextLine().split(" ");       
+        return rec;
     }
     
 }
