@@ -13,15 +13,15 @@ public class ChessBoard {
     ChessPiece[][] board;
     
     public ChessBoard() {
-        board = new ChessPiece[8][8];
+        board = new ChessPiece[9][9];
         initialize();
     }
 
     private void initialize() {
     	initializeFirstRow();
     	for (int i = 2; i <= 7; ++i) {
-    		board[2][i] = new ChessPiece('W', 'S' );
-    		board[7][i] = new ChessPiece('B', 'S' );
+    		board[2][i] = new ChessPiece('W', 'S', 2, i);
+    		board[7][i] = new ChessPiece('B', 'S', 7, i);
     	}
     	for (int i = 3; i <= 6; ++i) {
     		for (int j = 1; j <= 8; ++j) {
@@ -32,23 +32,23 @@ public class ChessBoard {
     }
     
     private void initializeFirstRow() {
-    	board[1][1] = new ChessPiece('W', 'R');
-    	board[1][8] = new ChessPiece('W', 'R');
-    	board[1][2] = new ChessPiece('W', 'N');
-    	board[1][7] = new ChessPiece('W', 'N');
-    	board[1][3] = new ChessPiece('W', 'B');
-    	board[1][6] = new ChessPiece('W', 'B');
-    	board[1][4] = new ChessPiece('W', 'Q');
-    	board[1][5] = new ChessPiece('W', 'K');
+    	board[1][1] = new ChessPiece('W', 'R', 1, 1);
+    	board[1][8] = new ChessPiece('W', 'R', 1, 8);
+    	board[1][2] = new ChessPiece('W', 'N', 1, 2);
+    	board[1][7] = new ChessPiece('W', 'N', 1, 7);
+    	board[1][3] = new ChessPiece('W', 'B', 1, 3);
+    	board[1][6] = new ChessPiece('W', 'B', 1, 6);
+    	board[1][4] = new ChessPiece('W', 'Q', 1, 4);
+    	board[1][5] = new ChessPiece('W', 'K', 1, 5);
     	
-    	board[8][1] = new ChessPiece('B', 'R');
-    	board[8][8] = new ChessPiece('B', 'R');
-    	board[8][2] = new ChessPiece('B', 'N');
-    	board[8][7] = new ChessPiece('B', 'N');
-    	board[8][3] = new ChessPiece('B', 'B');
-    	board[8][6] = new ChessPiece('B', 'B');
-    	board[8][4] = new ChessPiece('B', 'K');
-    	board[8][5] = new ChessPiece('B', 'Q');
+    	board[8][1] = new ChessPiece('B', 'R', 8, 1);
+    	board[8][8] = new ChessPiece('B', 'R', 8, 8);
+    	board[8][2] = new ChessPiece('B', 'N', 8, 2);
+    	board[8][7] = new ChessPiece('B', 'N', 8, 7);
+    	board[8][3] = new ChessPiece('B', 'B', 8, 3);
+    	board[8][6] = new ChessPiece('B', 'B', 8, 6);
+    	board[8][4] = new ChessPiece('B', 'K', 8, 4);
+    	board[8][5] = new ChessPiece('B', 'Q', 8, 5);
     }
     
     private void update() {
@@ -62,8 +62,16 @@ public class ChessBoard {
 class ChessPiece {
     char color;
     char name;
-    public ChessPiece(char color, char name) {
+    int prev_x;
+    int prev_y;
+    int cur_x;
+    int cur_y;
+    public ChessPiece(char color, char name, int prev_x, int prev_y) {
         this.color = color;
         this.name = name;
+        this.prev_x = prev_x;
+        this.prev_y = prev_y;
+        this.cur_x = cur_x;
+        this.cur_y = cur_y;
     }
 }
