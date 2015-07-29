@@ -13,10 +13,8 @@ import java.util.Map;
 public class ChessBoard {
     
     ChessPiece[][] board;
-    Map<String, Position> pieces;
     public ChessBoard() {
         board = new ChessPiece[9][9];
-        pieces = new HashMap<>();
         initialize();
     }
 
@@ -36,52 +34,36 @@ public class ChessBoard {
     
     private void initializeFirstRow() {
     	board[1][1] = new ChessPiece('W', 'R');
-        pieces.put("RW1", new Position(1, 1));
         
     	board[8][1] = new ChessPiece('W', 'R');
-        pieces.put("RW2", new Position(1, 8));
-    	
+        
         board[2][1] = new ChessPiece('W', 'N');
-    	pieces.put("NW1", new Position(1, 2));
         
         board[7][1] = new ChessPiece('W', 'N');
-    	pieces.put("NW2", new Position(1, 7));
         
         board[3][1] = new ChessPiece('W', 'B');
-    	pieces.put("BW1", new Position(1, 3));
         
         board[6][1] = new ChessPiece('W', 'B');
-    	pieces.put("BW2", new Position(1, 6));
-        
+
         board[4][1] = new ChessPiece('W', 'Q');
-    	pieces.put("QW", new Position(1, 4));
-        
+
         board[5][1] = new ChessPiece('W', 'K');
-    	pieces.put("KW", new Position(1, 5));
-        
+
     	board[1][8] = new ChessPiece('B', 'R');
-        pieces.put("RB1", new Position(8, 1));
-        
+
     	board[8][8] = new ChessPiece('B', 'R');
-        pieces.put("RB2", new Position(8, 8));
-                
+       
     	board[2][8] = new ChessPiece('B', 'N');
-        pieces.put("NB1", new Position(8, 2));
-                
+        
     	board[7][8] = new ChessPiece('B', 'N');
-        pieces.put("NB2", new Position(8, 7));
-        
+
     	board[3][8] = new ChessPiece('B', 'B');
-        pieces.put("BB1", new Position(8, 3));
-        
+
     	board[6][8] = new ChessPiece('B', 'B');
-        pieces.put("BB2", new Position(8, 2));
         
     	board[4][8] = new ChessPiece('B', 'Q');
-        pieces.put("QB", new Position(8, 4));
-        
+
     	board[5][8] = new ChessPiece('B', 'K');
-        pieces.put("KB", new Position(8, 5));
     }
     
     public void update(String move,char color ) {
@@ -175,29 +157,4 @@ class ChessPiece {
     public char getName() {
         return this.name;
     }
-}
-class Position{
-    int prev_x;
-    int prev_y;
-    int cur_x;
-    int cur_y;
-    
-    public Position(int x, int y)
-    {
-        this.prev_x = x;
-        this.prev_y = y;
-        this.cur_x = x;
-        this.cur_y = y;
-         
-    }
-    public void move(int next_x,int next_y)
-    {
-        this.prev_x = this.cur_x;
-        this.prev_y = this.cur_y;
-        this.cur_x = next_x;
-        this.cur_y = next_y;
-        
-    }
-    
-    
 }
