@@ -144,7 +144,7 @@ public class ChessBoard {
         return possiblePrevPos;
     }
     
-    private List<Point> getKinghtPos(int x, int y, List<Point> possiblePrevPos) {
+    private List<Point> getKnightPos(int x, int y, List<Point> possiblePrevPos) {
         int xMove[] = {1, 1, -1, -1, 2, 2, -2, -2};
     	int yMove[] = {2, -2, 2, -2, 1, -1, 1, -1};
     		
@@ -152,7 +152,7 @@ public class ChessBoard {
     		boolean validXValue = (x + xMove[i] >=1) && (x + xMove[i] <= 8);
     		boolean validYValue = (y + yMove[i] >=1) && (y + yMove[i] <= 8);
     		if(validXValue && validYValue) {
-    		possiblePrevPos.add(new Point(x + xMove[i], y + yMove[i]);
+                    possiblePrevPos.add(new Point(x + xMove[i], y + yMove[i]));
     		}
     	}
         return possiblePrevPos;
