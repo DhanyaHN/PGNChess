@@ -1,6 +1,9 @@
 package pgnchess;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,33 +87,35 @@ public class ChessBoard {
     public void update(String move,char color ) {
         
         System.out.println(move + "  "+ color);
+        
+        List<Point> prevPossiblePos = new ArrayList<>();
         // handling a pawn move
-        //System.out.println(pieces.get("PW4").cur_x + "   "+ pieces.get("PW4").cur_y);
+        
         if ( move.length() == 2 ){
             
             int x = Integer.parseInt((move.charAt(0) - 96)+"");
             int y = Integer.parseInt(move.charAt(1)+"");
-            int num1 = 1;
-            int num2 = 2;
-            if ( color == 'B') {
-                num1 = -1;
-                num2 = -2;
+            prevPossiblePos = getPossiblePrevPositions(x, y, 'P', color);
+            for( Point p : prevPossiblePos) {
+                if ( board[p.x][p.y].name == 'P' && board[p.x][p.y].color == color ) {
+                    board[x][y] = new ChessPiece(color, 'P');
+                    board[x][p.y] = new ChessPiece(' ', ' ');
+                }
             }
-           
-                    
-            //System.out.println(x + " " + y);
-            if ( board[x][y - num1].name == 'P' && board[x][y - num1].color == color ) {
-                board[x][y] = new ChessPiece(color, 'P');
-                board[x][y - 1] = new ChessPiece(' ', ' ');
-            }
-            else if ( board[x][y - num2].name == 'P' && board[x][y - num2].color == color ) {
-                board[x][y] = new ChessPiece(color, 'P');
-                board[x][y - 2] = new ChessPiece(' ', ' ');
+        }
+        else if (move.length() == 3 ) {
+            char name = move.charAt(0);
+            int x = Integer.parseInt((move.charAt(1) - 96)+"");
+            int y = Integer.parseInt(move.charAt(2)+"");
+            prevPossiblePos = getPossiblePrevPositions(x, y, name, color);
+            for( Point p : prevPossiblePos) {
+                if ( board[p.x][p.y].name == name && board[p.x][p.y].color == color ) {
+                    board[x][y] = new ChessPiece(color, name);
+                    board[x][p.y] = new ChessPiece(' ', ' ');
+                }
             }
         }
         display(board);
-        
-       // update the board 
     }
     public void display(ChessPiece board[][]) {
         for ( int i = 8; i > 0; i--) {
@@ -124,6 +129,34 @@ public class ChessBoard {
            }
            System.out.println();
         }
+    }
+
+    private List<Point> getPossiblePrevPositions(int x, int y, char name, char color) {
+        List<Point> possiblePrevPos = new ArrayList<>();
+        if ( name == 'P') {
+            possiblePrevPos = getPawnPos(x, y, color, possiblePrevPos);    
+        }
+        else if ( name == 'R') {
+            possiblePrevPos = getRookPos(x, y, possiblePrevPos);
+        }
+        
+        return possiblePrevPos;
+    }
+
+    private List<Point> getPawnPos(int x, int y, char color, List<Point> possiblePrevPos) {
+        int num1 = 1;
+        int num2 = 2;
+        if ( color == 'B') {
+            num1 = -1;
+            num2 = -2;
+        }
+        possiblePrevPos.add(new Point(x, y - num1));
+        possiblePrevPos.add(new Point(x, y - num2));
+        return possiblePrevPos;
+    }
+
+    private List<Point> getRookPos(int x, int y, List<Point> possiblePrevPos) {
+        return possiblePrevPos;
     }
 }
 class ChessPiece {
