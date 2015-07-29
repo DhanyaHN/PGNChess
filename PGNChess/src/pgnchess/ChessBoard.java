@@ -125,6 +125,10 @@ public class ChessBoard {
             possiblePrevPos = getKnightPos(x, y, possiblePrevPos);
         }
         
+        else if ( name == 'K') {
+        	possiblePrevPos = getKingPos(x, y, possiblePrevPos);
+        }
+        
         return possiblePrevPos;
     }
 
@@ -168,6 +172,43 @@ public class ChessBoard {
     	}
         return possiblePrevPos;
     }
+    
+        
+    private List<Point> getKingPos(int x, int y, List<Point> possiblePrevPos) {
+        int kingMove[] = {1, 1, -1, -1};
+        boolean validXAdd = x + 1 <= 8;
+		boolean validYAdd = y + 1 <= 8;
+		boolean validYSubtract = x -1 >= 1;
+		boolean validYSubtract = y - 1 >=1;
+		if (validXAdd) {
+			possiblePrevPos.add(new Point(x + 1, y));
+			
+			if (validYadd) {
+				possiblePrevPos.add(new Point(x, y + 1));
+				possiblePrevPos.add(new Point(x + 1, y + 1));	
+			}
+			
+			if (validYSubtract) {
+				possiblePrevPos.add(new Point(x, y - 1));
+				possiblePrevPos.add(new Point(x + 1, y - 1));
+			}
+		}
+		
+		if (validXSubtract) {
+			possiblePrevPos.add(new Point(x - 1, y));
+			
+			if (validYadd) {
+				possiblePrevPos.add(new Point(x - 1, y + 1));	
+			}
+			
+			if (validYSubtract) {
+				possiblePrevPos.add(new Point(x - 1, y - 1));
+			}
+		}
+
+        return possiblePrevPos;
+    }
+    
     private List<Point> getBishopPos(int x,int y, List<Point> possiblePrevPos){
         
         for(int i=x+1;i<=8;i++)
