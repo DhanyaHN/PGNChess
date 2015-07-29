@@ -8,8 +8,6 @@ package pgnchess;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -26,10 +24,11 @@ public class PGNChess {
         File file = new File("C:\\Users\\test\\Documents\\NetBeansProjects\\PGNChess\\PGNChess\\src\\pgnchess\\input");
         
             Scanner in = new Scanner(file);
-            String move[];
+            String move[] = new String[2];
             while ( in.hasNextLine() ) {
                 move = getMove(in);
-                System.out.println(move[0] + "  "+ move[1]);
+                board.update(move[0], 'W');
+                board.update(move[1], 'B');
             }
             in.close();
     }
