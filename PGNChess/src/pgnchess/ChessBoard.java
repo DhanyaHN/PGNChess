@@ -168,7 +168,27 @@ public class ChessBoard {
     	}
         return possiblePrevPos;
     }
+    private List<Point> getBishopPos(int x,int y, List<Point> possiblePrevPos){
+        
+        for(int i=x+1;i<=8;i++)
+        {
+            possiblePrevPos.add(new Point(i,i));
+            if(8 - i > 0) {
+                possiblePrevPos.add(new Point(8-i,i));
+            }
+        }
+        for(int i=x-1;i>=1;i--)
+        {
+           possiblePrevPos.add(new Point(i,i));
+            if (8 - i > 0) {
+                possiblePrevPos.add(new Point(8-i,i));
+            }
+                
+        }
+       return possiblePrevPos;
+    }
 }
+
 class ChessPiece {
     public char color;
     public char name;
