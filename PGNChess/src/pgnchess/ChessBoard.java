@@ -139,8 +139,19 @@ public class ChessBoard {
         possiblePrevPos.add(new Point(x, y - num2));
         return possiblePrevPos;
     }
+   
 
     private List<Point> getRookPos(int x, int y, List<Point> possiblePrevPos) {
+        for(int i=x+1;i<=8;i++)
+        {
+            possiblePrevPos.add(new Point(x,i));
+            possiblePrevPos.add(new Point(i,x));
+        }
+        for(int i=x-1;i>=1;i--)
+        {
+            possiblePrevPos.add(new Point(x,i));
+            possiblePrevPos.add(new Point(i,x));
+        }
         return possiblePrevPos;
     }
     
