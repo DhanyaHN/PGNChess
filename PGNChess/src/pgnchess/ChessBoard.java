@@ -175,39 +175,19 @@ public class ChessBoard {
     
         
     private List<Point> getKingPos(int x, int y, List<Point> possiblePrevPos) {
-        int kingMove[] = {1, 1, -1, -1};
-        boolean validXAdd = x + 1 <= 8;
-		boolean validYAdd = y + 1 <= 8;
-		boolean validYSubtract = x -1 >= 1;
-		boolean validYSubtract = y - 1 >=1;
-		if (validXAdd) {
-			possiblePrevPos.add(new Point(x + 1, y));
-			
-			if (validYadd) {
-				possiblePrevPos.add(new Point(x, y + 1));
-				possiblePrevPos.add(new Point(x + 1, y + 1));	
-			}
-			
-			if (validYSubtract) {
-				possiblePrevPos.add(new Point(x, y - 1));
-				possiblePrevPos.add(new Point(x + 1, y - 1));
-			}
-		}
-		
-		if (validXSubtract) {
-			possiblePrevPos.add(new Point(x - 1, y));
-			
-			if (validYadd) {
-				possiblePrevPos.add(new Point(x - 1, y + 1));	
-			}
-			
-			if (validYSubtract) {
-				possiblePrevPos.add(new Point(x - 1, y - 1));
-			}
-		}
-
+        int xMove[] = {0, 0, 1, -1, 1, -1, -1, 1};
+        int yMove[] = {1, -1, 0, 0, 1, 1, -1, -1};
+        
+        for (int i = 0; i < 8; ++i) {
+        	boolean validXValue = (x + xMove[i] >=1) && (x + xMove[i] <= 8);
+    		boolean validYValue = (y + yMove[i] >=1) && (y + yMove[i] <= 8);
+    		if(validXValue && validYValue) {
+                	possiblePrevPos.add(new Point(x + xMove[i], y + yMove[i]));
+    		}
+        }
         return possiblePrevPos;
     }
+
     
     private List<Point> getBishopPos(int x,int y, List<Point> possiblePrevPos){
         
