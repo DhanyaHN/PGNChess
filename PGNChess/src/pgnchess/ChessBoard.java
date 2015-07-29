@@ -20,8 +20,8 @@ public class ChessBoard {
     private void initialize() {
     	initializeFirstRow();
     	for (int i = 2; i <= 7; ++i) {
-    		board[2][i] = new ChessPiece('W', 'S', 2, i);
-    		board[7][i] = new ChessPiece('B', 'S', 7, i);
+    		board[2][i] = new ChessPiece('W', 'P', 2, i);
+    		board[7][i] = new ChessPiece('B', 'P', 7, i);
     	}
     	for (int i = 3; i <= 6; ++i) {
     		for (int j = 1; j <= 8; ++j) {
