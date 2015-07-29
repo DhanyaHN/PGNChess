@@ -121,6 +121,9 @@ public class ChessBoard {
         else if ( name == 'R') {
             possiblePrevPos = getRookPos(x, y, possiblePrevPos);
         }
+        else if ( name == 'N') {
+            possiblePrevPos = getKnightPos(x, y, possiblePrevPos);
+        }
         
         return possiblePrevPos;
     }
@@ -138,6 +141,20 @@ public class ChessBoard {
     }
 
     private List<Point> getRookPos(int x, int y, List<Point> possiblePrevPos) {
+        return possiblePrevPos;
+    }
+    
+    private List<Point> getKinghtPos(int x, int y, List<Point> possiblePrevPos) {
+        int xMove[] = {1, 1, -1, -1, 2, 2, -2, -2};
+    	int yMove[] = {2, -2, 2, -2, 1, -1, 1, -1};
+    		
+    	for (int i = 0;i < 8; ++i) {
+    		boolean validXValue = (x + xMove[i] >=1) && (x + xMove[i] <= 8);
+    		boolean validYValue = (y + yMove[i] >=1) && (y + yMove[i] <= 8);
+    		if(validXValue && validYValue) {
+    		possiblePrevPos.add(new Point(x + xMove[i], y + yMove[i]);
+    		}
+    	}
         return possiblePrevPos;
     }
 }
