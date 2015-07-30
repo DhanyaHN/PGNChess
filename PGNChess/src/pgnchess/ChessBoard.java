@@ -68,7 +68,7 @@ public class ChessBoard {
     
     public void update(String move,char color ) {
         
-        System.out.println(move + "  "+ color);
+        //System.out.println(move + "  "+ color);
         
         List<Point> prevPossiblePos = new ArrayList<>();
         // handling a pawn move
@@ -81,7 +81,7 @@ public class ChessBoard {
             for( Point p : prevPossiblePos) {
                 if ( board[p.x][p.y].name == 'P' && board[p.x][p.y].color == color ) {
                     board[x][y] = new ChessPiece(color, 'P');
-                    board[x][p.y] = new ChessPiece(' ', ' ');
+                    board[p.x][p.y] = new ChessPiece(' ', ' ');
                 }
             }
         }
@@ -93,11 +93,53 @@ public class ChessBoard {
             for( Point p : prevPossiblePos) {
                 if ( board[p.x][p.y].name == name && board[p.x][p.y].color == color ) {
                     board[x][y] = new ChessPiece(color, name);
-                    board[x][p.y] = new ChessPiece(' ', ' ');
+                    board[p.x][p.y] = new ChessPiece(' ', ' ');
                 }
             }
         }
-        display(board);
+        else if (move.length() == 4 ) {
+            int befCapPosX = 0;
+            int befCapPosY = 0;
+            int x = Integer.parseInt((move.charAt(2) - 96)+"");
+            int y = Integer.parseInt(move.charAt(3)+"");
+            List<Point> possiblePrevPos = new ArrayList<>();
+            
+            
+            if ( move.charAt(1) == 'x' ) {
+                //6 or 4
+                if ((move.charAt(0)+"").toLowerCase().equals(move.charAt(0)+""))
+                {
+                    befCapPosX = Integer.parseInt((move.charAt(0) - 96)+"");
+                    if ( color == 'W') {
+                    befCapPosY = y - 1;
+                    }
+                    else {
+                        befCapPosY = y + 1;
+                    }
+                    board[x][y].name = 'P';
+                    board[x][y].color = color;
+                    board[befCapPosX][befCapPosY].color = ' ';
+                    board[befCapPosX][befCapPosY].name = ' ';
+                }
+                else {
+                    char name = move.charAt(0);
+                    possiblePrevPos = getPossiblePrevPositions(x, y, name, color);
+                    for( Point p : possiblePrevPos) {
+                        if ( board[p.x][p.y].name == name && board[p.x][p.y].color == color ) {
+                            board[x][y].color = color;
+                            board[x][y].name = name;
+                            board[p.x][p.y].color = ' ';
+                            board[p.x][p.y].name = ' ';
+                        }
+                    }
+                }
+            }
+            
+        }
+        if ( "1/2-1/2".equals(move) ) {
+            display(board);
+        }
+        
     }
     public void display(ChessPiece board[][]) {
         for ( int i = 8; i > 0; i--) {
@@ -106,7 +148,7 @@ public class ChessBoard {
                    System.out.print(j+""+i+""+board[i][j].name + " " + board[i][j].color+"\t");
                }
                else {
-                   System.out.print(j+""+i+""+"E" + "  "+"\t");
+                   System.out.print(j+""+i+""+"-" + "  "+"\t");
                }
            }
            System.out.println();
@@ -115,6 +157,7 @@ public class ChessBoard {
 
     private List<Point> getPossiblePrevPositions(int x, int y, char name, char color) {
         List<Point> possiblePrevPos = new ArrayList<>();
+        
         if ( name == 'P') {
             possiblePrevPos = getPawnPos(x, y, color, possiblePrevPos);    
         }
